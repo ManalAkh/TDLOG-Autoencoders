@@ -2,7 +2,7 @@ import os
 
 #-----Modules for creating our app and our database
 
-from flask import Flask, url_for, redirect, render_template, request, flash
+from flask import Flask, url_for, redirect, render_template, request, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from flask_login import UserMixin, login_user, LoginManager, logout_user, current_user
@@ -13,12 +13,12 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 import requests
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timedelta
 
 #----Modules that we wrote 
 import potentials as pt
-import autoencoders as ae
-import dihedral_angles as rama
+#import autoencoders as ae
+#import dihedral_angles as rama
 
 N=1000
 
@@ -32,6 +32,8 @@ app.config['SQLACLHEMY_TRACK_MODIFICATIONS']=True
 
 db= SQLAlchemy(app)
 bcrypt=Bcrypt(app)
+
+app.permanent_session_lifetime = timedelta(minutes=5)
 
 def fetch_url(name):
     """ When the user choose a molecule to be displayed,
@@ -48,17 +50,6 @@ class User(db.Model,UserMixin):
     id=db.Column(db.Integer, primary_key=True)
     username=db.Column(db.String(20),nullable=False, unique=True)
     password=db.Column(db.String(80),nullable=False)
-    tuto0=db.Column(db.Boolean, nullable=True)
-    tuto1=db.Column(db.Boolean, nullable=True)
-    tuto2=db.Column(db.Boolean, nullable=True)
-    tuto3=db.Column(db.Boolean, nullable=True)
-    tuto4=db.Column(db.Boolean, nullable=True)
-
-    def change_tuto(self,nbr):
-        if nbr==0:
-            self.tuto0=True
-        if nbr==1:
-            self.tuto1=True
 
 class RegisterForm(FlaskForm):
     username=StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder":'username'})
@@ -99,7 +90,7 @@ def register():
         hashed_password = bcrypt.generate_password_hash(
             form.password.data).decode('utf-8')
         new_user = User(username=form.username.data,
-                        password=hashed_password, tuto0=False, tuto1=False, tuto2=False, tuto3=False, tuto4=False)
+                        password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         flash("Your account has successfully been created!")
@@ -240,7 +231,8 @@ def visualisation():
 @app.route('/explication/0', methods=['GET','POST'])
 def explication():
     """ Vizualisation of our work during MOPSI project """
-    current_user.tuto0=True
+    if current_user.is_authenticated:
+        session['tuto0']=True
     return render_template('explication0.html', title='Explanation')
 
 @app.route('/profil/<string:username>/<string:status>')
@@ -253,33 +245,60 @@ def profil_change_parameters(username,status):
 
 @app.route('/profil/<string:username>/<string:status>/tutorial')
 def profil_tutorial(username,status):
-    return render_template('profil_tutorial.html', username=username, status=status, title="Tutorial")
+    try :
+        tuto_0=session['tuto0']
+        print(tuto_0)
+    except:
+        tuto_0=False
+
+    try :
+        tuto_1=session['tuto1']
+        print(tuto_1)
+    except:
+        tuto_1=False
+
+    try :
+        tuto_2=session['tuto2']
+        print(tuto_2)
+    except:
+        tuto_2=False
+
+    try :
+        tuto_3=session['tuto3']
+        print(tuto_3)
+    except:
+        tuto_3=False
+
+    try :
+        tuto_4=session['tuto4']
+        print(tuto_4)
+    except:
+        tuto_4=False
+
+    return render_template('profil_tutorial.html', username=username, status=status, title="Tutorial", tuto0=tuto_0, tuto1=tuto_1, tuto2=tuto_2, tuto3=tuto_3, tuto4=tuto_4)
 
 @app.route('/explication/1')
 def explication1():
     """ Vizualisation of our work during MOPSI project """
 
-    current_user.tuto1=True
-    if current_user.tuto1:
-        print("L'uilisateur a fait le tuto1")
+    if current_user.is_authenticated:
+        session['tuto1']=True
     return render_template('explication1.html', title='Explanation')
 
 @app.route('/explication/2')
 def explication2():
     """ Vizualisation of our work during MOPSI project """
 
-    current_user.tuto2=True
-    if current_user.tuto2:
-        print("L'uilisateur a fait le tuto2")
+    if current_user.is_authenticated:
+        session['tuto2']=True
     return render_template('explication2.html', title='Explanation')
 
 @app.route('/explication/3')
 def explication3():
     """ Vizualisation of our work during MOPSI project """
 
-    current_user.tuto3=True
-    if current_user.tuto3:
-        print("L'uilisateur a fait le tuto3")
+    if current_user.is_authenticated:
+        session['tuto3']=True
     return render_template('explication3.html', title='Explanation')
 
 @app.route('/explication/4', methods=['GET', 'POST'])
@@ -288,9 +307,8 @@ def explication4():
         The user can choose the atoms and plot the correcponding Rama plot 
         Display an error message if the user didn't fill the cases correctly """
 
-    current_user.tuto4=True
-    if current_user.tuto4:
-        print("L'uilisateur a fait le tuto4")
+    if current_user.is_authenticated:
+        session['tuto4']=True
     url=fetch_url("dialanine")
 
     if request.method == 'POST':

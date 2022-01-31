@@ -1,37 +1,44 @@
 {% extends 'profil.html' %}
 
 {% block content %} 
-    <div class="block-text">
-        You have completed 
+<div class="block-text">
+    You have completed 
 
-        {{current_user.tuto0}}
+    {% if not (tuto0 or tuto1 or tuto2 or tuto3 or tuto4) %}
+        nothing yet
+    {% else %}
+    <ul>
 
-        {% if current_user.tuto0 %}
-        the Introduction
-        {% endif %}
-   
-        {% if current_user.tuto1 %}
-        , the Molecular Simulation
-        {% endif %}
-
-        {% if current_user.tuto2 %}
-        , the Neural Network Training
+        {% if tuto0 %}
+        <li>the Introduction</li>
         {% endif %}
 
-        {% if current_user.tuto3 %}
-        , the Quality of the CVs
+        {% if tuto1 %}
+        <li>the Molecular Simulation</li>
         {% endif %}
 
-        {% if current_user.tuto4 %}
-        , the Ball is in your court part
+        {% if tuto2 %}
+        <li>the Neural Network Training</li>
         {% endif %}
 
+        {% if tuto3 %}
+        <li>the Quality of the CVs</li>
+        {% endif %}
 
-        in the tutorial ! 
-        {% if current_user.tuto0 and current_user.tuto1 and current_user.tuto2 and current_user.tuto3 and current_user.tuto4 %}
-        You have done it all !
-        {% else %}
+        {% if tuto4 %}
+        <li>the Ball is in your court part</li>
+        {% endif %}
+
+    </ul>
+    {% endif %}
+    
+    in the tutorial !
+    
+    {% if not (tuto0 and tuto1 and tuto2 and tuto3 and tuto4) %}
         Keep Going !
-        {% endif %} 
-    </div> 
+    {% else %}
+        Great Job !
+    {% endif %}
+
+</div> 
  {% endblock %}
