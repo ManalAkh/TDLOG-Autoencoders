@@ -17,8 +17,8 @@ from datetime import datetime, timedelta
 
 #----Modules that we wrote 
 import potentials as pt
-#import autoencoders as ae
-#import dihedral_angles as rama
+import autoencoders as ae
+import dihedral_angles as rama
 
 N=1000
 
