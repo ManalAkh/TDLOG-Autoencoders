@@ -1,0 +1,37 @@
+{% extends 'profil.html' %}
+
+{% block content %} 
+    <div class="block-text">
+        You have completed 
+
+        {{current_user.tuto0}}
+
+        {% if current_user.tuto0 %}
+        the Introduction
+        {% endif %}
+   
+        {% if current_user.tuto1 %}
+        , the Molecular Simulation
+        {% endif %}
+
+        {% if current_user.tuto2 %}
+        , the Neural Network Training
+        {% endif %}
+
+        {% if current_user.tuto3 %}
+        , the Quality of the CVs
+        {% endif %}
+
+        {% if current_user.tuto4 %}
+        , the Ball is in your court part
+        {% endif %}
+
+
+        in the tutorial ! 
+        {% if current_user.tuto0 and current_user.tuto1 and current_user.tuto2 and current_user.tuto3 and current_user.tuto4 %}
+        You have done it all !
+        {% else %}
+        Keep Going !
+        {% endif %} 
+    </div> 
+ {% endblock %}

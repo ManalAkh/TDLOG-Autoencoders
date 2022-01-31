@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block styles %} 
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style_explication.css')}}">
+<script type="text/javascript" src= "/static/js/jmol/jsmol/jsmol/JSmol.min.js"></script>
+<script type="text/javascript" src= "/static/js/jmol/jsmol/jsmol/js/Jmol2.js"></script>
+<script> jmolInitialize("/static/js/jmol/jsmol/jsmol");</script>
+<script type="text/javascript" src="/static/js/jmol/jsmol/jsmol/JSmol.lite.nojq.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1><b> The ball is in your court ! </b></h1>
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        <h1>Something went wrong!</h1>
+                        <p>Ouch, You might have written a string or a non-integer value that raised a ValueError exceptions. You should make another choice
+                            and make sure you have entered an interger between 1 and 23.</p>
+                        <hr>
+                        <p>Fill all the boxes correctly! </p>
+                        <a href='/explication/4' class="btn btn-lg btn-danger" role="button" data-bs-toggle="button" > Try again ! </a>
+                    </div>
+                {% else %}
+                    You can play with the alanine dipeptide molecule displayed below. 
+                        <script>
+                            jmolApplet(500, "load {{url}}" , "0" )
+                        </script>
+                {% endif %}
+            </div>
+            
+            <div class=" col-md-3 list-group">
+                <a href="/explication/0" class="list-group-item list-group-item-action" aria-current="true"> Introduction</a>
+                <a href="/explication/1" class="list-group-item list-group-item-action"> Molecular Simulation </a>
+                <a href="/explication/2" class="list-group-item list-group-item-action">Neural Network Training</a>
+                <a href="/explication/3" class="list-group-item list-group-item-action "> Quality of CVs </a>
+                <a href="/explication/4" class="list-group-item list-group-item-action active"> Ball is in your court !</a>
+            </div>
+        </div>
+        
+        {% if completed_form %}
+
+            Your Ramachandran plot is displayed below. Drag your cursor on the graph!
+             
+            <iframe src= "/static/plot/rama_user.html" width="600" height="600" ></iframe>
+            <p>If all the points are on a same line or column, that means you've entered at least two same atom to define one of your angle. That is not correct!</p>
+            <p>You can also see the evolution according to time of the conformation (represented by dihedral angles)
+            Play with the slider. To fix the axes press the stop button and then the start one. Hope you will enjoy !</p>
+            <iframe src="/static/plot/rama_frame.html" width="600" height="600" ></iframe>
+
+        {% else %}
+            <div class="row wp-block-image">
+               <p> You have to choose 4 atoms in order to define a dihedral angle. You can see the numerotation of atoms 
+                by dragging the cursor over the atoms: the number and the atom name will appear ! <br>
+                Find the right angles and chart the correct Ramachandran plot !</p>
+            </div>
+            <div class="row">
+                <h2>Map out the Ramachandran plot</h2><br>
+                <p>Enter a number between 1 and 23 in each box.<br>
+                If you don't know what to choose you can start with [5, 7, 9, 15] for &phi; and  [7, 9, 15, 17] for &psi;.</p>
+            </div>
+            <div class="form-container">
+                <form action="#" method="POST">
+                    <div class="row">
+                        <label for="phi"> Define &phi; angle </label><br>
+                        <div class="col">
+                            <input type="int" class="form-control" name="phi_atom1" placeholder="Enter an integer">
+                        </div>
+                        <div class="col">
+                            <input type="int" class="form-control" name="phi_atom2" placeholder="Enter an integer">
+                        </div>
+                        <div class="col">
+                            <input type="int" class="form-control"  name="phi_atom3" placeholder="Enter an integer">
+                        </div>
+                        <div class= "col">
+                            <input type="int" class="form-control"  name="phi_atom4" placeholder="Enter an integer">
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <label for="psi"> Define &psi; angle </label><br>
+                        <div class="col">
+                            <input type="int" class="form-control" name="psi_atom1" placeholder="Enter an integer">
+                        </div>
+                        <div class="col">
+                            <input type="int" class="form-control" name="psi_atom2" placeholder="Enter an integer">
+                        </div>
+                        <div class="col">
+                            <input type="int" class="form-control" name="psi_atom3" placeholder="Enter an integer">
+                        </div>
+                        <div class="col">
+                            <input type="int" class="form-control" name="psi_atom4" placeholder="Enter an integer">
+                        </div>
+                    </div>
+
+                    <div class="wp-block-image">
+                        <input type="submit" class="btn btn-dark btn-block" value="Launch Computation">
+                    </div>
+                </form>
+            </div>
+
+        {% endif %}
+        
+            <div class="row">
+                <div class="col">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            100%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wp-block-image">
+                <a href='/explication/3'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                    </svg>
+                </a>
+            </div>
+    </div>
+</div>
+
+{% endblock %}

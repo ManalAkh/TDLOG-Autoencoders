@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Deep Learning applied to molecular dynamics</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style_base.css') }}">
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>  
+    {% block styles %} {% endblock %}
+    
+
+<header>
+    <div class="page_title_connection">
+        <h1>Deep Learning for molecular simulation</h1>
+        <button id="btn_connection"> 
+            {% if current_user.is_authenticated %}
+                {{current_user.username}}
+            {% else %}
+                Log In
+            {% endif %}
+        </button>
+        {% if current_user.is_authenticated %}
+            <div id="connection_window_id" class="connection_window">
+                <div class="connection_window-content">
+                    <span class="close_connection_window">&times;</span>
+                    Hey {{current_user.username}} !
+                    <div class="connection_ask_container">
+                        <a class="window_onglet"href="{{ url_for('profil_visualization_history', status='Etudiant', username='Inès VATI') }}">See your account !</a>
+                        <a class="window_onglet" href="{{url_for('logout')}}">Log out</a>
+                    </div>
+                </div>        
+            </div>
+        {% else %}
+            <div id="connection_window_id" class="connection_window">
+                <div class="connection_window-content">
+                    <span class="close_connection_window">&times;</span>
+                    Please connect !
+                    <div class="connection_ask_container">
+                        <a class="window_onglet" href="{{ url_for('login') }}"> Login !</a>
+                        <a class="window_onglet">Forgot password ?</a>
+                        <a class="window_onglet"href="{{ url_for('register') }}">New to the website ? Register !</a>
+                    </div>
+                </div>        
+            </div>
+        {% endif %}
+        <script src="/static/js/script_site.js"></script>
+    </div>
+    <nav>
+        <a class="onglet" href="{{ url_for('index', connexion_bool=connexion, user_name=username) }}">Homepage</a> <br>
+        <a class="onglet" href="{{ url_for('visualisation', connexion_bool=connexion, user_name=username) }}">Visualisation</a> <br>
+        <a class="onglet" href="{{ url_for('explication', connexion_bool=connexion, user_name=username) }}">Explication</a>
+    </nav>
+</header>
+<body>
+    <div id="flash-message-wrapper">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <h4 class="alert-heading">There is a mistake! Please try again. </h4>
+              <span>{{ message }}</span>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {%endfor%}
+          {% endif %}
+        {% endwith %} 
+        </div>
+    <div class= container-fluid>
+        <div class=container>
+            <h1 class="page-title">{{title}}</h1>
+            <div class="block">
+                {% block content %} {% endblock %}
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block styles %} 
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style_explication.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<div class= "container-fluid space">
+  <div class= "container space">
+    <div class="row">
+      <article class="col-md-6 space">
+        <h1><b>Train our Autoencoder</b></h1>
+        <p>Now that we have our 3D trajectory of 8 atoms (that is to say 8*3=24 input dimensions), we can implement our neural network and 
+        train it with those data. Our goal is to reduce the dimension from 22 to 2. Our neural netword is made up of an encoder and a decoder layers. The encoder contains two fully
+        connected layers, of respective dimensions 40 and 2. All activation function are tanh. The decoder is symmetric to the encoder. </p>
+        <div class= "wp-block-image">
+          <img src="/static/img/NNarchitecture.png" alt="Summary of our Neural Network architecture" title="Summary of our Neural Network architecture">
+        </div>
+        <br> Here is a link to our <a href="/explication/codeNN">notebook</a>.  We use the adam optimization algorithm. The model is trained with
+        300 epochs.
+        
+        <img class ="wp-block-image" src="/static/img/NNresult.png" alt="Neural Network losses" title="Result of our Neural Network Training">
+        We see above that the loss of our neural network drop drastically during training. The loss is below 74% which is really good.
+        That means our autoencoder correctly restitute the initial trajectory after the dimension reduction and that our weight is supposed to be well learned. Let's check that in the next section.
+      </article>
+      <div class="col-md-3"></div>
+      <div class=" col-md-3 list-group">
+        <a href="/explication/0" class="list-group-item list-group-item-action" aria-current="true"> Introduction</a>
+        <a href="/explication/1" class="list-group-item list-group-item-action"> Molecular Simulation </a>
+        <a href="/explication/2" class="list-group-item list-group-item-action active">Neural Network Training</a>
+        <a href="/explication/3" class="list-group-item list-group-item-action"> Quality of CVs </a>
+        <a href="/explication/4" class="list-group-item list-group-item-action"> Ball is in your court !</a>
+      </div>
+    </div>
+
+    
+        <div class="jumbotron">
+            <h1> What is an autoencoder?</h1>
+            <p> Autoencoder is an unsupervised artificial neural network that learns how to efficiently compress and encode data then learns how to reconstruct the data back from the reduced encoded representation to a representation that is as close to the original input as possible. </p>
+            
+            <p><a class="btn btn-lg btn-primary" href="https://towardsdatascience.com/auto-encoder-what-is-it-and-what-is-it-used-for-part-1-3e5c6f017726" role="button">Learn more about autoencoders</a></p>
+            <p><a class="btn btn-lg btn-danger" href="https://www.deeplearningbook.org/" role="button">Learn more about Deep Learning</a></p>
+        </div>
+
+      
+
+    <div class="row">
+      <div class="col">
+          <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                  40%
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-1 wp-block-image">
+          <a href='/explication/1'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+              <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+              </svg>
+          </a>
+      </div>
+      <div class="col-md-8"></div>
+      <div class="col-md-1 wp-block-image">
+          <a href='/explication/3'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                  <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+              </svg>
+          </a>
+      </div>  
+  </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,135 @@
+header {
+    height: 150px;
+    background-image: url("../img/wallpaper_deep_learning.jpg");
+    background-attachment: fixed;
+    color : white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin-left: 5px;
+}
+
+.page_title_connection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.connection_window {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    color: black;
+}
+  
+.connection_window-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.connection_ask_container {
+    background-color: rgba(9,49,98);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.window_onglet{
+    width : 100%;
+    padding: 8px;
+    color : white;
+    text-align: center;
+    text-decoration:none;
+    font-size: 15px;
+    height : 40px;
+}
+
+.window_onglet:hover{
+    background-color: rgba(255, 255, 255, 0.6);
+    color: rgba(9,49,98);
+    text-decoration:none;
+    text-align: center;
+}
+
+.close_connection_window {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close_connection_window:hover,
+.close_connection_window:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+nav {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.onglet{
+    width: 100%;
+    height: 100%;
+    background-color:rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px rgb(255, 255, 255, 0.3) solid;
+    border-bottom: 1px rgb(255, 255, 255, 0.3) solid;;
+    color:rgb(255, 255, 255);
+    text-decoration:none;
+    font-size: 20px;
+}
+
+.onglet:hover{ 
+    background: rgb(255, 255, 255); 
+    color:rgba(29, 3, 21, 0.667);
+    text-decoration:none;
+}
+
+
+
+
+body {
+    color:rgba(29, 3, 21, 0.667);
+    padding: 0;
+    margin: 0;
+}
+
+.block {
+    margin: 20px;
+}
+
+h1 {
+    width: 70%;
+    font-family : Arial, Helvetica, sans-serif;
+}
+
+.page-title{
+    font-size: 32px;
+    margin-left: 50px;;
+}

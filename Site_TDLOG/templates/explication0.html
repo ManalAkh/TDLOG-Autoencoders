@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block styles %} 
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style_explication.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h1><b>Introduction</b></h1>
+                <br>We proposed you an progressive and interactive insight in our work.</br>
+                <br> Most of the methods that have proven to be powerful tool to accelerate the simulation of conformational changes of molecules 
+                rely on <a title="These degrees of freedom would be what we call Collective Variables (CV)">low-dimensional degrees of freedom</a>.
+                Alternatively, such CVs can be identified using machine learning and dimensionality reduction algorithms. Here, we are going to learn CVs with autoencoders. First, we will see how we generate a molecular trajectory.</br>
+                <br> You can see below the alanine dipeptide in vacuum with which we are going to work. We have generated this video with the VMD software and have made the movie with VideoMatch</br>
+            </article>
+            <div class=" col-md-3"></div>
+            <div class=" col-md-3 list-group">
+                <a href="/explication" class="list-group-item list-group-item-action active" aria-current="true">Introduction</a>
+                <a href="/explication/1" class="list-group-item list-group-item-action"> Molecular Simulation </a>
+                <a href="/explication/2" class="list-group-item list-group-item-action">Neural Network Training</a>
+                <a href="/explication/3" class="list-group-item list-group-item-action"> Quality of CVs </a>
+                <a href="/explication/4" class="list-group-item list-group-item-action"> Ball is in your court !</a>
+            </div>
+        </div>
+        <div clas= "row">
+            
+            <article class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <video class="tab wp-block-image" controls>
+                    <source src="/static/video/visu-ala.mp4" type="video/mp4">
+                </video> 
+            </article>
+            <article class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></article>
+        </div>
+
+        <div class="alert alert-info" role="alert"> Our study is based on the work presented in  <a href="https://hal.archives-ouvertes.fr/hal-03207673">this article</a>.</div>
+        <div class="d-grid col-md-4 mx-auto"></div>
+        <div class="d-grid col-md-4 mx-auto">
+            <a href='/explication/1' class="btn btn-lg btn-danger" role="button" data-bs-toggle="button" > Get Started ! </a>
+        </div>
+    </div> 
+
+</div>
+
+{% endblock %}
+
+

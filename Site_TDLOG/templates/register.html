@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/register_login.css')}}">
+</head>
+
+<body>
+
+    <div id="register_block">
+        <div id="title">Please Register !</div>
+        <form action=# method="post" id="form_register">
+            {{form.hidden_tag()}}
+            {{form.username}}
+            {{form.password}}
+            {{form.submit}}
+        </form>
+        {% for mesg in get_flashed_messages() %}
+        {{ mesg }}
+        {% endfor %}
+        <div class="already_registered">
+            <a href="{{ url_for('login')}}">Already have an account ? Log In </a>
+            <a href="{{ url_for('index') }}">Do not connect</a>
+        </div> 
+    </div>
+
+</body>
+
+</html>
